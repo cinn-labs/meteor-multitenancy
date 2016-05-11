@@ -6,8 +6,8 @@ Meteor.publish('_groupId', function () {
   return Meteor.users.find({ _id: this.userId }, { fields: { [Tenancy.groupName]: 1 } });
 });
 
-Tenancy.setUserTenant = function(userId, groupId) {
-  Meteor.defer(() => Meteor.users.update({ _id: userId }, { $set: { [Tenancy.groupName]: groupId } }));
+Tenancy.setUserTenant = function(userId, groupId, callback) {
+  Meteor.defer(() => Meteor.users.update({ _id: userId }, { $set: { [Tenancy.groupName]: groupId } }, callback));
 };
 
 Tenancy.prepareCollection = function(collection) {
