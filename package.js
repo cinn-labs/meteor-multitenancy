@@ -1,6 +1,6 @@
 Package.describe({
   name: 'cinn:multitenancy',
-  version: '0.0.3',
+  version: '0.0.4',
   summary: 'Multi tenancy for meteor apps',
   git: 'https://github.com/cinn-labs/meteor-multitenancy',
   documentation: 'README.md'
