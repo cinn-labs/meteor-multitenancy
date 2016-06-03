@@ -10,30 +10,30 @@ Tenancy.setUserTenant = function(userId, groupId, callback) {
   Meteor.defer(() => Meteor.users.update({ _id: userId }, { $set: { [Tenancy.groupName]: groupId } }, callback));
 };
 
-Tenancy.prepareCollection = function(collection) {
-  collection.before.find(findHook);
-  collection.before.findOne(findHook);
-  collection.before.insert(insertHook);
-  collection.before.upsert(upsertHook);
-};
-
-Meteor.users.before.find(findHook);
-
-function insertHook(userId, doc) {
+Tenancy.insertHook = function(userId, doc) {
   const groupId = Tenancy.currentGroupId(userId);
   if(!groupId) return true;
   doc[Tenancy.groupName] = groupId;
-}
+};
 
-function upsertHook(userId, selector, modifier, options) {
+Tenancy.upsertHook = function(userId, selector, modifier, options) {
   const groupId = Tenancy.currentGroupId(userId);
   if(!groupId) return true;
   modifier.$set = modifier.$set || {};
   modifier.$set[Tenancy.groupName] = groupId;
-}
+};
 
-function findHook(userId, selector, options) {
+Tenancy.findHook = function(userId, selector, options) {
   const groupId = Tenancy.currentGroupId(userId);
   if(!groupId) return true;
   selector[Tenancy.groupName] = groupId;
-}
+};
+
+Tenancy.prepareCollection = function(collection) {
+  collection.before.find(Tenancy.findHook);
+  collection.before.findOne(Tenancy.findHook);
+  collection.before.insert(Tenancy.insertHook);
+  collection.before.upsert(Tenancy.upsertHook);
+};
+
+Meteor.users.before.find(Tenancy.findHook);
