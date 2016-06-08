@@ -13,15 +13,17 @@ After creating a user, you have to provide a group id for that user. It can be a
 
 ```js
 import { Tenancy } from 'meteor/cinn:multitenancy';
+
 const companyId = Companies.insert({ name: 'New Company Name' });
 const newUserId = Accounts.createUser({ email: 'email@email.com', profiel: { name: 'John Doe' } });
 Tenancy.setUserTenant(newUserId, companyId);
 ```
 
 ### Setting up the collection
-After creating a collection, just call the `Tenancy.prepareCollections`, and the collection will be ready.
+After creating a collection, just call the `Tenancy.prepareCollection`, and the collection will be ready.
 ```js
 import { Tenancy } from 'meteor/cinn:multitenancy';
+
 const Posts = new Mongo.Collection('posts');
 Tenancy.prepareCollection(Posts);
 ```
@@ -37,6 +39,7 @@ Posts.find({});
 ### Getting user's group
 ```js
 import { Tenancy } from 'meteor/cinn:multitenancy';
+
 const groupId = Tenancy.currentGroupId(Meteor.userId());
 ```
 
@@ -46,6 +49,7 @@ It's pretty simples, it sets a `_groupId` field on every collection that is usin
 ```js
 // Basic setup
 import { Tenancy } from 'meteor/cinn:multitenancy';
+
 const Posts = new Mongo.Collection('posts');
 Tenancy.prepareCollection(Posts);
 
@@ -72,5 +76,6 @@ Posts.find({ _groupId: Tenancy.currentGroupId(Meteor.userId()) });
 By default the group field name is `_groupId` but you can set your own custom name:
 ```js
 import { Tenancy } from 'meteor/cinn:multitenancy';
+
 Tenancy.setGroupName('companyId');
 ```
