@@ -36,4 +36,4 @@ Tenancy.prepareCollection = function(collection) {
   // collection.before.upsert(Tenancy.upsertHook);
 };
 
-Meteor.users.before.find(Tenancy.findHook);
+if(!!Meteor.users) Meteor.users.before.find(Tenancy.findHook);
