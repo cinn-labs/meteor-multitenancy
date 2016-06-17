@@ -30,6 +30,7 @@ Tenancy.findHook = function(userId, selector, options) {
 };
 
 Tenancy.prepareCollection = function(collection) {
+  if(!collection.before) return console.warn(`[TENANCY] Collection ${collection._name} was not succesfully configured.`);
   collection.before.find(Tenancy.findHook);
   collection.before.findOne(Tenancy.findHook);
   collection.before.insert(Tenancy.insertHook);
