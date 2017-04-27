@@ -15,7 +15,7 @@ After creating a user, you have to provide a group id for that user. It can be a
 import { Tenancy } from 'meteor/cinn:multitenancy';
 
 const companyId = Companies.insert({ name: 'New Company Name' });
-const newUserId = Accounts.createUser({ email: 'email@email.com', profiel: { name: 'John Doe' } });
+const newUserId = Accounts.createUser({ email: 'email@email.com', profile: { name: 'John Doe' } });
 Tenancy.setUserTenant(newUserId, companyId);
 ```
 
