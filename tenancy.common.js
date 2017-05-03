@@ -9,7 +9,7 @@ Tenancy.setGroupName = (name) => Tenancy.groupName = name;
 Tenancy.currentGroupId = function(userId) {
   const user = Meteor.users.findOne({ _id: userId }, { fields: { [Tenancy.groupName]: 1 } });
   if(!user) return false;
-  return user._groupId;
+  return user[Tenancy.groupName];
 };
 
 // Empty funcion to simulate code on client, avoiding adding "if (Meteor.isServer)" on every call
