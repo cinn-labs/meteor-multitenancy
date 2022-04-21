@@ -1,6 +1,6 @@
 Package.describe({
   name: 'cinn:multitenancy',
-  version: '0.0.7',
+  version: '0.0.8',
   summary: 'Multi tenancy for meteor apps',
   git: 'https://github.com/cinn-labs/meteor-multitenancy',
   documentation: 'README.md'
@@ -14,7 +14,7 @@ Package.onUse(function(api) {
 
   api.use('ecmascript');
   api.use('meteor-base');
-  api.use("matb33:collection-hooks@0.8.1");
+  api.use("matb33:collection-hooks@1.1.1");
 
   api.addFiles('tenancy.common.js', both);
   api.addFiles('tenancy.server.js', 'server');
